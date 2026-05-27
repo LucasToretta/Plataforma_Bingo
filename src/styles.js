@@ -2,24 +2,30 @@ import styled from 'styled-components'
 
 export const Container = styled.main`
     min-height: 100vh;
-    padding: 24px;
+    padding: 24px;          /* ← mobile */
     max-width: 1600px;
     margin: 0 auto;
+
+    @media (min-width: 600px) {
+       margin: 40px;      /* ← desktop */
+    }
 `
 
 export const Header = styled.header`
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 32px;
+    gap: 16px;
+    margin-bottom: 24px;
 
     img {
-        height: 140px;
+        height: 100px;
         object-fit: contain;
         border-radius: 10px;
     }
 
     select {
+        width: 100%;
         padding: 12px 16px;
         border-radius: 12px;
         font-size: 16px;
@@ -28,16 +34,17 @@ export const Header = styled.header`
         border: 2px solid #d4a017;
     }
 
-    @media (max-width: 768px) {
-        flex-direction: column;
-        gap: 16px;
+    @media (min-width: 600px) {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 32px;
 
         img {
-            height: 100px;
+            height: 140px;
         }
 
         select {
-            width: 100%;
+            width: auto;
         }
     }
 `
@@ -46,12 +53,12 @@ export const MainContent = styled.div`
     display: flex;
     flex-direction: column;
     gap: 32px;
+    align-items: center;
 
-    @media (min-width: 1048px) {
+    @media (min-width: 900px) {
         display: grid;
         grid-template-columns: 34% 66%;
         align-items: center;
-        gap: 32px;
         min-height: calc(100vh - 220px);
     }
 `
@@ -60,37 +67,18 @@ export const DrawSide = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 24px;
-
-    @media (min-width: 1048px) {
-        justify-content: center;
-        height: 100%;
-    }
+    width: 100%;
 `
 
 export const GridSide = styled.section`
     width: 100%;
-    min-width: 0;
+
+    overflow-x: auto;
 
     display: flex;
     justify-content: center;
-    align-items: center;
-`
-
-export const Grid = styled.section`
-    width: 100%;
-    max-width: 720px;
-
-    display: grid;
-    grid-template-columns: repeat(10, 56px);
-    gap: 10px;
-    justify-content: center;
-
-    @media (max-width: 768px) {
-        grid-template-columns: repeat(5, 1fr);
-        max-width: 100%;
-        gap: 8px;
-    }
 `
 
 export const Title = styled.h1`
@@ -98,8 +86,8 @@ export const Title = styled.h1`
 `
 
 export const CurrentBall = styled.div`
-    width: 260px;
-    height: 260px;
+    width: clamp(170px, 45vw, 260px);
+    height: clamp(170px, 45vw, 260px);
     border-radius: 50%;
 
     background: radial-gradient(
@@ -110,7 +98,7 @@ export const CurrentBall = styled.div`
     );
 
     color: #08131f;
-    font-size: 96px;
+    font-size: clamp(64px, 18vw, 96px);
     font-weight: bold;
 
     display: flex;
@@ -124,10 +112,4 @@ export const CurrentBall = styled.div`
         inset 0 0 18px rgba(255, 255, 255, 0.45);
 
     transition: all 0.4s ease;
-
-    @media (max-width: 768px) {
-        width: 180px;
-        height: 180px;
-        font-size: 64px;
-    }
 `
